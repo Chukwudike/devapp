@@ -11,14 +11,6 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register"); 
 const validateLoginInput = require("../../validation/login");
 
-//@route GET api/users/test
-//@desc test user route
-//access public
-
-Router.get("/test", (req, res) =>
-  res.json({ msg: "This is to test user route" })
-);
-
 //@route POST api/users/register
 //@desc Register user route
 //access Public
@@ -107,7 +99,11 @@ Router.post("/login", (req, res) => {
 Router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => res.json(req.user)
+  (req, res) => res.json({
+    id : req.user.id,
+    name : req.user.name,
+    email : req.user.email
+  })
 );
 
 module.exports = Router;
